@@ -1,0 +1,19 @@
+{
+    "type": "postgres",
+    "host": "db",
+    "port": 5432,
+    "username": "trinus",
+    "password": "trinusplanner",
+    "database": "TRINUS-PLANNER",
+    "synchronize": true,
+    "logging": false,
+    "migrations": [
+        "./dist/database/migrations/*.js"
+    ],
+    "entities": [
+        "./dist/models/*.js"
+    ],
+    "cli": {
+        "migrationsDir": "./dist/database/migrations"
+    }
+}
