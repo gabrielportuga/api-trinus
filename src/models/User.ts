@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Trip } from "./Trip";
 
-@Entity("user")
+@Entity("traveler")
 class User {
 
     @PrimaryGeneratedColumn('increment')
@@ -12,8 +13,15 @@ class User {
     @Column()
     email: string;
 
+    @Column()
+    password: string;
+
     @CreateDateColumn()
     created_at: Date;
+
+    @OneToMany(() => Trip, trip => trip.user)
+    @JoinColumn({ name: "id" })
+    trips: Trip[];
 }
 
 export { User };

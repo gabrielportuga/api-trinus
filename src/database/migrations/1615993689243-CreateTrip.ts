@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateSurveysUsers1614819849358 implements MigrationInterface {
+export class CreateTrip1615993689243 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "survey_user",
+                name: "trip",
                 columns: [
                     {
                         name: "id",
@@ -20,12 +20,34 @@ export class CreateSurveysUsers1614819849358 implements MigrationInterface {
                         type: "integer"
                     },
                     {
-                        name: "survey_id",
-                        type: "integer"
+                        name: "name",
+                        type: "varchar",
                     },
                     {
-                        name: "value",
-                        type: "integer",
+                        name: "country",
+                        type: "varchar",
+                    },
+                    {
+                        name: "start_date",
+                        type: "date",
+                    },
+                    {
+                        name: "end_date",
+                        type: "date",
+                    },
+                    {
+                        name: "note",
+                        type: "varchar",
+                        isNullable: true
+                    },
+                    {
+                        name: "expected_expense",
+                        type: "money",
+                        isNullable: true
+                    },
+                    {
+                        name: "effective_expense",
+                        type: "money",
                         isNullable: true
                     },
                     {
@@ -36,24 +58,18 @@ export class CreateSurveysUsers1614819849358 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        name: "FKUser",
+                        name: "FKTraveler",
                         referencedTableName: "traveler",
                         referencedColumnNames: ["id"],
                         columnNames: ["user_id"]
                     },
-                    {
-                        name: "FKSurvey",
-                        referencedTableName: "survey",
-                        referencedColumnNames: ["id"],
-                        columnNames: ["survey_id"]
-                    }
                 ]
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("survey_user");
+        await queryRunner.dropTable("trip");
     }
 
 }
