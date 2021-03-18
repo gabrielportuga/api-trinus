@@ -33,13 +33,56 @@ class TripController {
         return response.status(201).json(trip);
     }
 
-    async show(request: Request, response: Response) {
+    async getAll(request: Request, response: Response) {
         const tripRepository = getCustomRepository(TripRepository);
 
         const all = await tripRepository.find();
 
         return response.json(all);
     }
+
+    async getUserTrips(request: Request, response: Response) {
+        const { user_id } = request.params;
+
+        const tripRepository = getCustomRepository(TripRepository);
+
+        const all = await tripRepository.find({user_id});
+
+        return response.json(all);
+    }
+
+    async delete(request: Request, response: Response) {
+        const { id } = request.params;
+
+        const tripRepository = getCustomRepository(TripRepository);
+
+        const trip = await tripRepository.findOne(id);
+
+        if (!trip) {
+            throw new AppError("Trip does not exists!");
+        }
+
+        const results = await tripRepository.delete(id);
+
+        return response.send(results);
+    }
+
+    async update(request: Request, response: Response) {
+        const { id } = request.params;
+        const updatedTrip: Trip = request.body;
+        const tripRepository = getCustomRepository(TripRepository);
+
+        const trip = await tripRepository.findOne(id);
+
+        if (!trip) {
+            throw new AppError("Trip does not exists!");
+        }
+
+        tripRepository.merge(trip, updatedTrip);
+        const results = await tripRepository.save(trip);
+        return response.send(results);
+    }
+
 }
 
 export { TripController };

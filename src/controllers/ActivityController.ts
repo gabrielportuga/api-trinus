@@ -5,7 +5,7 @@ import { AppError } from '../errors/AppError';
 import { Activity } from '../models/Activity';
 import { ActivityRepository } from '../repositories/ActivityRepository';
 
-class activityController {
+class ActivityController {
 
     async create(request: Request, response: Response) {
         let activity: Activity = request.body;
@@ -33,13 +33,55 @@ class activityController {
         return response.status(201).json(activity);
     }
 
-    async show(request: Request, response: Response) {
+    async getAll(request: Request, response: Response) {
         const activityRepository = getCustomRepository(ActivityRepository);
 
         const all = await activityRepository.find();
 
         return response.json(all);
     }
+
+    async getTripActivities(request: Request, response: Response) {
+        const { trip_id } = request.params;
+
+        const activityRepository = getCustomRepository(ActivityRepository);
+
+        const all = await activityRepository.find({trip_id});
+
+        return response.json(all);
+    }
+
+    async delete(request: Request, response: Response) {
+        const { id } = request.params;
+
+        const activityRepository = getCustomRepository(ActivityRepository);
+
+        const trip = await activityRepository.findOne(id);
+
+        if (!trip) {
+            throw new AppError("Trip does not exists!");
+        }
+
+        const results = await activityRepository.delete(id);
+
+        return response.send(results);
+    }
+
+    async update(request: Request, response: Response) {
+        const { id } = request.params;
+        const updatedActivity: Activity = request.body;
+        const activityRepository = getCustomRepository(ActivityRepository);
+
+        const activity = await activityRepository.findOne(id);
+
+        if (!activity) {
+            throw new AppError("Activity does not exists!");
+        }
+
+        activityRepository.merge(activity, updatedActivity);
+        const results = await activityRepository.save(activity);
+        return response.send(results);
+    }
 }
 
-export { activityController };
+export { ActivityController };
