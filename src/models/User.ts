@@ -4,7 +4,7 @@ import { Trip } from "./Trip";
 @Entity("traveler")
 class User {
 
-    @PrimaryGeneratedColumn('increment')
+    @PrimaryGeneratedColumn("increment")
     id: Number;
 
     @Column()
@@ -16,8 +16,14 @@ class User {
     @Column()
     password: string;
 
-    @CreateDateColumn()
-    created_at: Date;
+    @Column({name: "photo_url", nullable: true})
+    photoUrl: string;
+
+    @Column({name: "access_type", default: 1})
+    accessType: string;
+
+    @CreateDateColumn({name: "created_at"})
+    createdAt: Date;
 
     @OneToMany(() => Trip, trip => trip.user)
     @JoinColumn({ name: "id" })

@@ -11,11 +11,11 @@ class ActivityController {
         let activity: Activity = request.body;
 
         const schema = yup.object().shape({
-            trip_id: yup.string().required("Viagem é obrigatório!"),
-            activity_type: yup.string().required("Tipo atividade obrigatório!"),
+            tripId: yup.string().required("Viagem é obrigatório!"),
+            activityType: yup.string().required("Tipo atividade obrigatório!"),
             name: yup.string().required("Nome obrigatório!"),
-            start_hour: yup.date().required("Hora inicial é obrigatório!"),
-            end_hour: yup.date().required("Hora final é obrigatório!"),
+            startHour: yup.date().required("Hora inicial é obrigatório!"),
+            endHour: yup.date().required("Hora final é obrigatório!"),
         })
         
         try {
@@ -42,11 +42,11 @@ class ActivityController {
     }
 
     async getTripActivities(request: Request, response: Response) {
-        const { trip_id } = request.params;
+        const { tripId } = request.params;
 
         const activityRepository = getCustomRepository(ActivityRepository);
 
-        const all = await activityRepository.find({trip_id});
+        const all = await activityRepository.find({tripId});
 
         return response.json(all);
     }

@@ -5,7 +5,7 @@ import { User } from "./User";
 @Entity("survey_user")
 class SurveyUser {
 
-    @PrimaryGeneratedColumn('increment')
+    @PrimaryGeneratedColumn("increment")
     id: Number;
 
     @Column()

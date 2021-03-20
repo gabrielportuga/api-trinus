@@ -28,6 +28,16 @@ export class CreateUsers1614802422331 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
+                        name: "photo_url",
+                        type: "varchar",
+                        isNullable: true
+                    },
+                    {
+                        name: "access_type",
+                        type: "integer",
+                        default: "1"
+                    },
+                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "now()"

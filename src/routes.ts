@@ -22,13 +22,13 @@ router.post("/login", userController.login);
 
 router.post("/trip", tripController.create);
 router.get("/trip", tripController.getAll);
-router.get("/trip/:user_id", tripController.getUserTrips);
+router.get("/trip/:userId", tripController.getUserTrips);
 router.delete("/trip/:id", tripController.delete);
 router.put("/trip/:id", tripController.update);
 
 router.post("/activity", activityController.create);
 router.get("/activity", activityController.getAll);
-router.get("/activity/:user_id", activityController.getTripActivities);
+router.get("/activity/:userId", activityController.getTripActivities);
 router.delete("/activity/:id", activityController.delete);
 router.put("/activity/:id", activityController.update);
 
@@ -37,6 +37,6 @@ router.get("/surveys", surveyController.getAll);
 
 router.post("/sendMail", surveyUserMailController.execute);
 router.get("/answers/:value", answerController.execute);
-router.get("/nps/:survey_id", npsController.execute);
+router.get("/nps/:surveyId", npsController.execute);
 
 export { router };

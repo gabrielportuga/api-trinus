@@ -11,11 +11,11 @@ class TripController {
         let trip: Trip = request.body;
 
         const schema = yup.object().shape({
-            user_id: yup.string().required("Viajante é obrigatório!"),
+            userId: yup.string().required("Viajante é obrigatório!"),
             name: yup.string().required("Nome obrigatório!"),
             country: yup.string().required("País é obrigatório!"),
-            start_date: yup.date().required("Data inicial é obrigatório!"),
-            end_date: yup.date().required("Data final é obrigatório!"),
+            startDate: yup.date().required("Data inicial é obrigatório!"),
+            endDate: yup.date().required("Data final é obrigatório!"),
         })
         
         try {
@@ -36,17 +36,19 @@ class TripController {
     async getAll(request: Request, response: Response) {
         const tripRepository = getCustomRepository(TripRepository);
 
-        const all = await tripRepository.find();
+        const all = await tripRepository.find({
+            relations: ["user"]
+        });;
 
         return response.json(all);
     }
 
     async getUserTrips(request: Request, response: Response) {
-        const { user_id } = request.params;
+        const { userId } = request.params;
 
         const tripRepository = getCustomRepository(TripRepository);
 
-        const all = await tripRepository.find({user_id});
+        const all = await tripRepository.find({userId});
 
         return response.json(all);
     }

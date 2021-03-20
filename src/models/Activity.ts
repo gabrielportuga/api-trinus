@@ -4,14 +4,14 @@ import { Trip } from "./Trip";
 @Entity("activity")
 class Activity {
 
-    @PrimaryGeneratedColumn('increment')
+    @PrimaryGeneratedColumn("increment")
     id: Number;
 
-    @Column()
-    trip_id: Number;
+    @Column({name: "trip_id"})
+    tripId: Number;
 
-    @Column()
-    activity_type: Number;
+    @Column({name: "activity_type"})
+    activityType: Number;
 
     @Column()
     name: string;
@@ -19,14 +19,14 @@ class Activity {
     @Column({nullable: true})
     address: string;
 
-    @Column()
-    all_day: Boolean;
+    @Column({name: "all_day"})
+    allDay: Boolean;
 
-    @Column()
-    start_hour: Date;
+    @Column({name: "start_hour"})
+    startHour: Date;
 
-    @Column()
-    end_hour: Date;
+    @Column({name: "end_hour"})
+    endHour: Date;
 
     @Column({nullable: true})
     website: string;
@@ -34,16 +34,16 @@ class Activity {
     @Column({nullable: true})
     note: string;
 
-    @Column({nullable: true})
-    expected_expense: Number;
+    @Column({name: "expected_expense", nullable: true})
+    expectedExpense: Number;
 
-    @Column({nullable: true})
-    effective_expense: Number;
+    @Column({name: "effective_expense", nullable: true})
+    effectiveExpense: Number;
 
-    @CreateDateColumn()
-    created_at: Date;
+    @CreateDateColumn({name: "created_at"})
+    createdAt: Date;
 
-    @ManyToOne(() => Trip, trip => trip.activities)
+    @ManyToOne(() => Trip)
     @JoinColumn({ name: "trip_id" })
     trip: Trip;
 }

@@ -5,11 +5,11 @@ import { User } from "./User";
 @Entity("trip")
 class Trip {
 
-    @PrimaryGeneratedColumn('increment')
+    @PrimaryGeneratedColumn("increment")
     id: Number;
 
-    @Column()
-    user_id: Number;
+    @Column({name: "user_id"})
+    userId: Number;
 
     @Column()
     name: string;
@@ -17,25 +17,25 @@ class Trip {
     @Column()
     country: string;
 
-    @Column()
-    start_date: Date;
+    @Column({name: "start_date"})
+    startDate: Date;
 
-    @Column()
-    end_date: Date;
+    @Column({name: "end_date"})
+    endDate: Date;
 
     @Column({nullable: true})
     note: string;
 
-    @Column({nullable: true})
-    expected_expense: Number;
+    @Column({name: "expected_expense", nullable: true})
+    expectedExpense: Number;
 
-    @Column({nullable: true})
-    effective_expense: Number;
+    @Column({name: "effective_expense", nullable: true})
+    effectiveExpense: Number;
 
-    @CreateDateColumn()
-    created_at: Date;
+    @CreateDateColumn({name: "created_at"})
+    createdAt: Date;
 
-    @ManyToOne(() => User, user => user.trips)
+    @ManyToOne(() => User)
     @JoinColumn({ name: "user_id" })
     user: User;
 
